@@ -1,0 +1,29 @@
+package model;
+
+public class Detalhe {
+
+	
+	private LinhaCodigo linha = null;
+	
+	private String tipoLetra;
+	private int tipoTamanho;
+	
+	public Detalhe(LinhaCodigo linha) {
+		this.linha = linha;
+		this.tipoLetra = this.linha.getTipo().substring(0,1);
+	}
+
+	public String toString() {
+		return this.linha.getNome();
+	}
+
+	
+	public String getTipoJava() {
+		return "String";
+	}
+
+	public int getTamanho() {
+		return 4;
+	}
+	
+}

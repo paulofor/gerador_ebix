@@ -1,0 +1,15 @@
+package model;
+
+public class Detalhe {
+
+	
+	private LinhaCodigo linha = null;
+	
+	public Detalhe(LinhaCodigo linha) {
+		this.linha = linha;
+	}
+
+	public String toString() {
+		return this.linha.getNome();
+	}
+}

@@ -1,0 +1,85 @@
+package gerador;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import model.CamposCobol;
+import model.Detalhe;
+import model.Estrutura;
+
+public class GeraServico {
+
+	private String PATH = "/home/usuario/aplicacoes/Ebix-Dados/";
+
+	private String nomeArquivo = "INET1082.java";
+
+	public void gerador(CamposCobol arquivo) {
+		try {
+			this.geraCodigo();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void gerEstruturas(CamposCobol arquivo,BufferedWriter writer) throws IOException {
+		for (Estrutura item : arquivo.getEstruturas()) {
+			writer.write("protected static final FieldType[] COMMON_FIELDS = new FieldType[] {");
+			for (Detalhe detalhe : item.getDetalhes()) {
+				writer.write("		new StringFieldType(\"" + detalhe.toString() + "\", 4, TRANNAME),");
+			}
+			writer.write("}");
+		}
+	}
+
+	
+	private void geraCodigo() throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH	+ nomeArquivo));
+		
+		writer.write("package br.com.bradseg.inet.adiantamentoparcela.segundaviaboleto.cics;\n");
+
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.annotation.CicsGateway;\n");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.FieldType;\n");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.IndexedFieldType;\n");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.IntegerFieldType;\n");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.LongFieldType;\n");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.StringFieldType;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.program.CTGProgramImpl;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.program.CommonAreaMetaData;");
+
+		writer.write("@CicsGateway");
+		writer.write("public class INET0802  extends CTGProgramImpl{");
+
+		writer.write("// Constantes do programa");
+		writer.write("private static final String PGMNAME = \"INET0802\";");
+		writer.write("private static final String TRANNAME = \"IN38\";");
+		writer.write("private static final int COMMLENGTH = 10000;");
+
+		writer.write("// Campos comuns entre Entrada e Saida");
+		writer.write("protected static final FieldType[] COMMON_FIELDS = new FieldType[] {");
+		writer.write("		new StringFieldType(\"NM-TRANSACAO\", 4, TRANNAME),");
+		writer.write("		new StringFieldType(\"HD-COMUNICACAO\", 16),");
+		writer.write("		new StringFieldType(\"CD-PROGRAMA\", 8, PGMNAME),");
+		writer.write("		new IntegerFieldType(\"TP-REGISTRO\", 2, new Integer(01)),");
+		writer.write("		new IntegerFieldType(\"CD-ORIGEM\", 2, new Integer(02))");
+		writer.write("};");
+		
+		
+		writer.write("private static final CommonAreaMetaData COMMAREAIN = new CommonAreaMetaData(COMMON_FIELDS, COMMAREAIN_FIELDS);");
+		writer.write("private static final CommonAreaMetaData COMMAREAOUT = new CommonAreaMetaData(COMMON_FIELDS,COMMAREAOUT_FIELDS);");
+		
+		writer.write(" /**");
+		writer.write("  * Construtor da classe que envia a definicao da transacao para o CTGProgram");
+		writer.write("  */");
+		writer.write(" public INET0802() {");
+		writer.write("	 super(PGMNAME, TRANNAME, COMMLENGTH, COMMAREAIN, COMMAREAOUT);");
+		writer.write(" }");
+		
+		writer.write("}");
+
+		writer.close();
+
+	}
+	
+
+}

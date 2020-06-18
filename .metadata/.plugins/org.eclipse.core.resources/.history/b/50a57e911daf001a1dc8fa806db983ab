@@ -1,0 +1,61 @@
+package gerador;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class GeraServico {
+
+	private String PATH = "/home/usuario/aplicacoes/Ebix-Dados/";
+
+	private String nomeArquivo = "INET1082";
+
+	public void gerador() {
+		try {
+			this.geraCodigo();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void geraCodigo() throws IOException {
+		String str = "Hello";
+		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH	+ nomeArquivo));
+		writer.write(str);
+		writer.close();
+
+	}
+	
+	private void inicio(BufferedWriter writer) throws IOException {
+		writer.write("package br.com.bradseg.inet.adiantamentoparcela.segundaviaboleto.cics;");
+
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.annotation.CicsGateway;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.FieldType;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.IndexedFieldType;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.IntegerFieldType;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.LongFieldType;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.field.StringFieldType;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.program.CTGProgramImpl;");
+		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.program.CommonAreaMetaData;");
+
+		writer.write("@CicsGateway");
+		writer.write("public class INET0802  extends CTGProgramImpl{");
+
+		writer.write("// Constantes do programa");
+		writer.write("private static final String PGMNAME = \"INET0802\";");
+		writer.write("private static final String TRANNAME = \"IN38\";");
+		writer.write("private static final int COMMLENGTH = 10000;");
+
+		writer.write("// Campos comuns entre Entrada e Saida");
+		writer.write("protected static final FieldType[] COMMON_FIELDS = new FieldType[] {");
+		writer.write("		new StringFieldType(\"NM-TRANSACAO\", 4, TRANNAME),");
+		writer.write("		new StringFieldType(\"HD-COMUNICACAO\", 16),");
+		writer.write("		new StringFieldType(\"CD-PROGRAMA\", 8, PGMNAME),");
+		writer.write("		new IntegerFieldType(\"TP-REGISTRO\", 2, new Integer(01)),");
+		writer.write("		new IntegerFieldType(\"CD-ORIGEM\", 2, new Integer(02))");
+		writer.write("};");
+
+	}
+	
+
+}

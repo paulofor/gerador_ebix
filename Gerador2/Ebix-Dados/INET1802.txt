@@ -1,0 +1,57 @@
+ *******************************************************           00000001
+      *  BOOK      : INET1802                               *           00000002
+      *  PROGRAMA  : INET0802                               *           00000003
+      *  TRANSACAO : IN38 - WEBSPHERE                       *           00000007
+      *  TAMANHO - 10000 BYTES                              *
+      *******************************************************           00000023
+       01 AREA-COM-1802-ENT.                                            00000010
+          03 NM-TRANSAC-1802-ENT              PIC X(004).               00000011
+          03 HD-COMUNIC-1802-ENT              PIC X(016).               00000012
+          03 CD-PROGRAMA-1802-ENT             PIC X(008).               00000013
+          03 TP-REGISTRO-1802-ENT             PIC 9(002).               00000014
+          03 CD-ORIGEM-1802-ENT               PIC 9(002).               00000015
+      *
+          03 DADOS-ENTRADA.                                             00000016
+             05 CD-CNPJ-CPF-CORR-1802-ENT     PIC 9(016).               00000017
+             05 CD-SUC-1802-ENT               PIC 9(004).               00000018
+             05 CD-RAMO-1802-ENT              PIC 9(004).               00000019
+             05 CD-CIA-1802-ENT               PIC 9(004).               00000020
+             05 NO-APOL-1802-ENT              PIC 9(006).               00000021
+             05 NO-ITEM-1802-ENT              PIC 9(004).               00000022
+             05 NO-ENDOSSO-1802-ENT           PIC 9(009).               00000023
+                                                                        00000024
+          03 DS-DADOS-ERRO.                                             00000025
+             05 CD-ERRO-1802-RET              PIC 9(001).               00000026
+             05 DS-MSG-ERRO-1802-RET          PIC X(030).               00000027
+             05 COD-ERRO-1802-RET             PIC 9(002).               00000028
+             05 SQL-CODE-1802-RET             PIC 9(004).               00000029
+      *                                                                 00000030
+          03 DADOS-APOLICE-1802-RET.                                    00000031
+             05 CD-CNPJ-CPF-CORR-1802-RET     PIC 9(016).               00000032
+             05 CD-SUC-1802-RET               PIC 9(004).               00000033
+             05 CD-RAMO-1802-RET              PIC 9(004).               00000034
+             05 CD-CIA-1802-RET               PIC 9(004).               00000035
+             05 NO-APOL-1802-RET              PIC 9(006).               00000036
+             05 NO-ITEM-1802-RET              PIC 9(004).               00000037
+             05 NM-SEGURADO-1802-RET          PIC X(080).               00000038
+             05 DS-TP-COB-1802-RET            PIC X(020).               00000039
+      *                                                                 00000040
+          03 TABELA-PREST-RET      OCCURS 025 TIMES.                    00000041
+             05 NR-PREST-1802-RET             PIC 9(004).               00000042
+             05 DT-VENCTO-AMD-1802-RET        PIC X(010).               00000043
+             05 NR-TITULO-1802-RET            PIC X(020).
+             05 NR-DV-TIT-1802-RET            PIC 9(001).               00000045
+             05 DT-PAGTO-AMD-1802-RET         PIC X(010).               00000046
+             05 VR-PREMIO-1802-RET            PIC 9(015)V9(002).        00000047
+             05 DS-STATUS-1802-RET            PIC X(010).               00000048
+             05 CD-STATUS-1802-RET            PIC X(001).               00000049
+             05 NR-ENDOSSO-1802-RET           PIC 9(009).               00000050
+             05 DT-CONTROLE-1802-RET          PIC X(010).               00000051
+             05 CD-TPO-DOC-1802-RET           PIC 9(003).               00000051
+             05 HA-PENDENCIA-1802-RET         PIC X(001).               00000051
+             05 ID-SISTEMA-1802-RET           PIC X(001).               00000051
+             05 DG-REF-1802-RET               PIC X(65).                00000051
+             05 OBJ-SEGURADO-1802-RET         PIC X(20).                00000051
+          03 NR-VEZES-1802-RET                PIC 9(003).               00000052
+          03 FILLER                           PIC X(5193).
+

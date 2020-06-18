@@ -1,0 +1,25 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CamposCobol {
+
+	//List<LinhaCodigo> saida = new ArrayList<LinhaCodigo>();
+	
+	Estrutura estruturaCorrente = null;
+	
+	List<Estrutura> campos = new ArrayList<Estrutura>();
+
+	public void add(LinhaCodigo linha) {
+		//saida.add(linha);
+		if (linha.isEstrutura()) {
+			Estrutura estrutura = new Estrutura(linha);
+			if (estruturaCorrente!=null) {
+				campos.add(estruturaCorrente);
+			}
+			estruturaCorrente = estrutura;
+		}
+	}
+	
+}
