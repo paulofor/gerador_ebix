@@ -14,7 +14,7 @@ import model.LinhaCodigo;
 
 public class LeitorDataDivObj {
 	
-	private String PATH = "/home/usuario/aplicacoes/Ebix-Dados/";
+	private String PATH = "Ebix-Dados/";
 	
 	private String nomePrograma;
 	

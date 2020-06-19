@@ -10,7 +10,7 @@ import model.Estrutura;
 
 public class GeraServico {
 
-	private String PATH = "/home/usuario/aplicacoes/Ebix-Dados/";
+	private String PATH = "Ebix-Dados/";
 
 	private String nomeArquivo = "INET1082.java";
 
@@ -26,7 +26,7 @@ public class GeraServico {
 		for (Estrutura item : arquivo.getEstruturas()) {
 			writer.write("protected static final FieldType[] " + item.getNomeCampos() + " = new FieldType[] {\n");
 			for (Detalhe detalhe : item.getDetalhes()) {
-				writer.write("		new " + detalhe.getTipoJava() + "FieldType(\"" + detalhe.toString() + "\", " + detalhe.getTamanho() + ", TRANNAME),\n");
+				writer.write("		new " + detalhe.getTipoJava() + "FieldType(\"" + detalhe.toString() + "\", " + detalhe.getTamanho() + "),\n");
 			}
 			writer.write("};\n");
 		}
@@ -54,19 +54,8 @@ public class GeraServico {
 		writer.write("private static final String PGMNAME = \"INET0802\";\n");
 		writer.write("private static final String TRANNAME = \"IN38\";\n");
 		writer.write("private static final int COMMLENGTH = 10000;");
-
-		writer.write("// Campos comuns entre Entrada e Saida\n");
-		writer.write("protected static final FieldType[] COMMON_FIELDS = new FieldType[] {\n");
-		writer.write("		new StringFieldType(\"NM-TRANSACAO\", 4, TRANNAME),\n");
-		writer.write("		new StringFieldType(\"HD-COMUNICACAO\", 16),\n");
-		writer.write("		new StringFieldType(\"CD-PROGRAMA\", 8, PGMNAME),\n");
-		writer.write("		new IntegerFieldType(\"TP-REGISTRO\", 2, new Integer(01)),\n");
-		writer.write("		new IntegerFieldType(\"CD-ORIGEM\", 2, new Integer(02))\n");
-		writer.write("};\n");
-		
 		
 		this.gerEstruturas(arquivo, writer);
-		
 		
 		writer.write("private static final CommonAreaMetaData COMMAREAIN = new CommonAreaMetaData(COMMON_FIELDS, COMMAREAIN_FIELDS);\n");
 		writer.write("private static final CommonAreaMetaData COMMAREAOUT = new CommonAreaMetaData(COMMON_FIELDS,COMMAREAOUT_FIELDS);\n");
