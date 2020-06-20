@@ -12,11 +12,11 @@ public class GeraServico {
 
 	private String PATH = "Ebix-Dados/";
 
-	private String nomeArquivo = "INET1082.java";
+	//private String nomePrograma;
 
-	public void gerador(CamposCobol arquivo) {
+	public void gerador(String nomePrograma, CamposCobol arquivo) {
 		try {
-			this.geraCodigo(arquivo);
+			this.geraCodigo(nomePrograma, arquivo);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -33,8 +33,8 @@ public class GeraServico {
 	}
 
 	
-	private void geraCodigo(CamposCobol arquivo) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH	+ nomeArquivo));
+	private void geraCodigo(String nomePrograma, CamposCobol arquivo) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(PATH	+ nomePrograma + "Base.java"));
 		
 		writer.write("package br.com.bradseg.inet.adiantamentoparcela.segundaviaboleto.cics;\n");
 
@@ -47,28 +47,27 @@ public class GeraServico {
 		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.program.CTGProgramImpl;\n");
 		writer.write("import br.com.bradseg.bsad.framework.ctg.programapi.program.CommonAreaMetaData;\n");
 
-		writer.write("@CicsGateway\n");
-		writer.write("public class INET0802  extends CTGProgramImpl{\n");
+		//writer.write("@CicsGateway\n");
+		writer.write("public abstract class " + nomePrograma + "Base  extends CTGProgramImpl{\n");
 
 		writer.write("// Constantes do programa\n");
-		writer.write("private static final String PGMNAME = \"INET0802\";\n");
-		writer.write("private static final String TRANNAME = \"IN38\";\n");
-		writer.write("private static final int COMMLENGTH = 10000;");
+		writer.write("protected static final String PGMNAME = \"" + nomePrograma + "\";\n");
+		//writer.write("private static final String TRANNAME = \"IN38\";\n");
+		writer.write("protected static final int COMMLENGTH = 10000;");
 		
 		this.gerEstruturas(arquivo, writer);
 		
-		writer.write("private static final CommonAreaMetaData COMMAREAIN = new CommonAreaMetaData(COMMON_FIELDS, COMMAREAIN_FIELDS);\n");
-		writer.write("private static final CommonAreaMetaData COMMAREAOUT = new CommonAreaMetaData(COMMON_FIELDS,COMMAREAOUT_FIELDS);\n");
-		
-		writer.write(" /**\n");
-		writer.write("  * Construtor da classe que envia a definicao da transacao para o CTGProgram\n");
-		writer.write("  */\n");
-		writer.write(" public INET0802() {\n");
-		writer.write("	 super(PGMNAME, TRANNAME, COMMLENGTH, COMMAREAIN, COMMAREAOUT);\n");
-		writer.write(" }\n");
-		
+			
+		writer.write("/**\n");
+		writer.write("* Construtor da classe que envia a definicao da transacao para o CTGProgram\n");
+		writer.write("*/\n");
+		writer.write("public " + nomePrograma + "Base() {\n");
+		writer.write("	 super(PGMNAME, getTrName(), COMMLENGTH, getAreaIn(), getAreaOut());\n");
+		writer.write("}\n\n");
+		writer.write("protected abstract CommonAreaMetaData getAreaIn();\n\n");
+		writer.write("protected abstract CommonAreaMetaData getAreaOut();\n\n");
+		writer.write("protected abstract String getTrName();\n\n");
 		writer.write("}\n");
-
 		writer.close();
 
 	}

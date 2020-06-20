@@ -18,12 +18,13 @@ public class LeitorDataDivObj {
 	
 	private String nomePrograma;
 	
-	public void executa(String nomeArquivo) {
+	public void executa(String nome) {
 		try {
-			CamposCobol arquivo = executaLeitura(nomeArquivo);
+			nomePrograma = nome;
+			CamposCobol arquivo = executaLeitura(nomePrograma + ".book");
 			arquivo.mostraEstruturas();
 			GeraServico codigo1 = new GeraServico();
-			codigo1.gerador(arquivo);
+			codigo1.gerador(nomePrograma, arquivo);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,7 +32,7 @@ public class LeitorDataDivObj {
 
 
 	public CamposCobol executaLeitura(String nomeArquivo) throws IOException {
-		FileInputStream fstream = new FileInputStream(PATH + nomeArquivo);
+		FileInputStream fstream = new FileInputStream(PATH + nomeArquivo );
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
