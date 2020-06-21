@@ -1,6 +1,6 @@
 package model;
 
-public class Detalhe {
+public class Detalhe  implements ItemDetalhe{
 
 	
 	private LinhaCodigo linha = null;

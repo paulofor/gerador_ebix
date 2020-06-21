@@ -7,6 +7,7 @@ import java.io.IOException;
 import model.CamposCobol;
 import model.Detalhe;
 import model.Estrutura;
+import model.ItemDetalhe;
 
 public class GeraServico {
 
@@ -25,8 +26,15 @@ public class GeraServico {
 	private void gerEstruturas(CamposCobol arquivo,BufferedWriter writer) throws IOException {
 		for (Estrutura item : arquivo.getEstruturas()) {
 			writer.write("protected static final FieldType[] " + item.getNomeCampos() + " = new FieldType[] {\n");
-			for (Detalhe detalhe : item.getDetalhes()) {
-				writer.write("		new " + detalhe.getTipoJava() + "FieldType(\"" + detalhe.toString() + "\", " + detalhe.getTamanho() + "),\n");
+			for (ItemDetalhe itemDetalhe : item.getDetalhes()) {
+				if (itemDetalhe instanceof Detalhe) {
+					Detalhe detalhe = (Detalhe) itemDetalhe;
+					writer.write("		new " + detalhe.getTipoJava() + "FieldType(\"" + detalhe.toString() + "\", " + detalhe.getTamanho() + "),\n");
+				};
+				if (itemDetalhe instanceof DetalheVetor) {
+					DetalheVetor detalheVetor = (DetalheVetor) itemDetalhe;
+					writer.write("		new IndexedFieldType(\"" + detalheVetor.getNome() + "\", " + detalhe.getTamanho() + "),\n");
+				}
 			}
 			writer.write("};\n");
 		}

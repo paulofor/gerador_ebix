@@ -15,7 +15,10 @@ public class CamposCobol {
 
 	public void add(LinhaCodigo linha) {
 		//saida.add(linha);
-		if (linha.isEstrutura()) {
+		if (linha.isEstrutura() ) {
+			if (linha.isVetor()) {
+				
+			}
 			estruturaCorrente = new Estrutura(linha);
 			campos.add(estruturaCorrente);
 			nivelDetalhe = null;

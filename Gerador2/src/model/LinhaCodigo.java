@@ -9,7 +9,9 @@ public class LinhaCodigo {
 	private int vetor;
 	
 	
-	
+	public boolean isVetor() {
+		return vetor > 0;
+	}
 	
 	public boolean verificaLinha(String strLinha) {
 		String linhaTrim = strLinha.trim();
