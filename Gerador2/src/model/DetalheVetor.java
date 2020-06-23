@@ -1,9 +1,15 @@
 package model;
 
-public class DealheVetor implements ItemDetalhe{
+public class DetalheVetor implements ItemDetalhe{
 
 	private int tamanho;
 	private String nome;
+	
+	public DetalheVetor(int tamanho, String nome) {
+		this.tamanho = tamanho;
+		this.nome = nome;
+	}
+	
 	public int getTamanho() {
 		return tamanho;
 	}

@@ -16,7 +16,7 @@ public class Estrutura {
 
 	public void debug() {
 		System.out.println();
-		System.out.println("Estrutura: " + this.linha.getNome() +"(" + this.linha.getVetor() + ")");
+		System.out.println("Estrutura: " + this.linha.getNome() +"(" + this.linha.getTamanhoVetor() + ")");
 		for (ItemDetalhe detalhe : detalhes) {
 			System.out.println("Item: " + detalhe);
 		}

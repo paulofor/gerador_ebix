@@ -1,14 +1,13 @@
 package app;
 
-import gerador.GeraServico;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
+import gerador.GeraServico;
 import model.CamposCobol;
 import model.LinhaCodigo;
 
@@ -36,19 +35,21 @@ public class LeitorDataDivObj {
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
-		CamposCobol saida = new CamposCobol();
+		
+		
+		List<LinhaCodigo> listaLinha = new ArrayList<LinhaCodigo>();
 
 		while ((strLine = br.readLine()) != null)   {
 		  System.out.println (strLine);
 		  LinhaCodigo linha = new LinhaCodigo();
 		  if (linha.verificaLinha(strLine)) {
 			  linha.setLinhaTexto(strLine);
-			  saida.add(linha);
+			  listaLinha.add(linha);
 		  }
 		  
 		}
 		fstream.close();
-		
+		CamposCobol saida = new CamposCobol(listaLinha);
 		return saida;
 		
 	}

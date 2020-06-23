@@ -11,9 +11,47 @@ public class CamposCobol {
 	
 	List<Estrutura> campos = new ArrayList<Estrutura>();
 	
-	String nivelDetalhe = null;
 
-	public void add(LinhaCodigo linha) {
+	public CamposCobol(List<LinhaCodigo> listaLinha) {
+		int pos = 0;
+		while (pos < listaLinha.size()) {
+			LinhaCodigo linha = listaLinha.get(pos);
+			if (linha.isEstrutura()) {
+				pos = adicionaEstrutura(pos,listaLinha);
+			}
+		}
+	}
+
+	private int adicionaEstrutura(int pos,List<LinhaCodigo>listaLinha) {
+		LinhaCodigo linha = listaLinha.get(pos);
+		Estrutura estrutura = new Estrutura(linha);
+		pos++;
+		linha = listaLinha.get(pos);
+		String nivelDetalhe = linha.getNivel();
+		while (linha!=null && nivelDetalhe.compareTo(linha.getNivel())==0 && !linha.isEstrutura()) {
+			Detalhe detalhe = new Detalhe(linha);
+			System.out.println("Detalhe: " + detalhe.toString());
+			estrutura.add(detalhe);
+			pos++;
+			if (listaLinha.size()>pos) {
+				linha = listaLinha.get(pos);
+				if (linha.isVetor()) {
+					DetalheVetor detalheVetor = new DetalheVetor(linha.getTamanhoVetor(),linha.getNome());
+					estrutura.add(detalheVetor);
+					pos = adicionaEstrutura(pos,listaLinha);
+					linha = listaLinha.get(pos);
+					nivelDetalhe = linha.getNivel();
+				}
+			} else {
+				linha = null;
+			}
+		}
+		campos.add(estrutura);
+		return pos;
+	}
+	
+	/*
+	private void add(LinhaCodigo linha) {
 		//saida.add(linha);
 		if (linha.isEstrutura() ) {
 			if (linha.isVetor()) {
@@ -32,6 +70,7 @@ public class CamposCobol {
 			}
 		}
 	}
+	*/
 	
 	public List<Estrutura> getEstruturas() {
 		return campos;

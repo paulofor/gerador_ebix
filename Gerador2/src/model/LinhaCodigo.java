@@ -22,12 +22,20 @@ public class LinhaCodigo {
 	}
 
 	public void setLinhaTexto(String strLine) {
+		String nome = null;
 		this.linhaTexto = strLine;
 		String linhaTrim = linhaTexto.trim();
 		this.nivel = linhaTrim.substring(0, 2);
+		linhaTrim = linhaTrim.substring(3).trim();
 		//System.out.println("Nivel:" + this.nivel);
-		int posicaoFinalNome = linhaTrim.substring(3).indexOf(" ") + 3;
-		this.setNome(linhaTrim.substring(3, posicaoFinalNome-1));
+		int posicaoFinalNome = linhaTrim.indexOf(" ");
+		if (posicaoFinalNome==-1) posicaoFinalNome = linhaTrim.length() -1;
+		nome = linhaTrim.substring(0,posicaoFinalNome);
+		if (nome.charAt(nome.length()-1)=='.') {
+			nome = nome.substring(0,nome.length()-1);
+		} 
+		this.setNome(nome);
+		
 		//System.out.println("Nome:" + this.nome);
 		if (linhaTrim.contains("PIC")) {
 			int posicaoFinalTipo = linhaTrim.indexOf('.');
@@ -72,7 +80,7 @@ public class LinhaCodigo {
 		return nome;
 	}
 
-	public int getVetor() {
+	public int getTamanhoVetor() {
 		return vetor;
 	}
 

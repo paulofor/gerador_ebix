@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import model.CamposCobol;
 import model.Detalhe;
+import model.DetalheVetor;
 import model.Estrutura;
 import model.ItemDetalhe;
 
@@ -33,7 +34,7 @@ public class GeraServico {
 				};
 				if (itemDetalhe instanceof DetalheVetor) {
 					DetalheVetor detalheVetor = (DetalheVetor) itemDetalhe;
-					writer.write("		new IndexedFieldType(\"" + detalheVetor.getNome() + "\", " + detalhe.getTamanho() + "),\n");
+					writer.write("		new IndexedFieldType(\"" + detalheVetor.getNome() + "\", " + detalheVetor.getTamanho() + ", new CommonAreaMetaData(" + detalheVetor.getNome() + ")),\n");
 				}
 			}
 			writer.write("};\n");
@@ -61,7 +62,7 @@ public class GeraServico {
 		writer.write("// Constantes do programa\n");
 		writer.write("protected static final String PGMNAME = \"" + nomePrograma + "\";\n");
 		//writer.write("private static final String TRANNAME = \"IN38\";\n");
-		writer.write("protected static final int COMMLENGTH = 10000;");
+		writer.write("protected static final int COMMLENGTH = 10000;\n");
 		
 		this.gerEstruturas(arquivo, writer);
 		

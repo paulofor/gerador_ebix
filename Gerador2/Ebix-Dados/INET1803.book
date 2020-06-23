@@ -1,0 +1,38 @@
+  *===============================================================*
+      *    INET1803  - BOOK - AREA DE TRANSFERENCIA                   *
+      *    PROGRAMA  = INET0803 (ONLINE)                              *
+      *    TRANSACAO = IN39 - WEBSPHERE                               *
+      *    TAMANHO   = 1500 BYTES                                     *
+      *===============================================================*
+      * CONSULTA APOLICE CAPA FROTA NA DBATL.APOL                     *
+      *===============================================================*
+      * TIPO DE RETORNO - (CD-RETORNO)                                *
+      * 0 - SUCESSO                                                   *
+      * 1 - ERRO DE VALIDACAO DE PARAMETROS DE ENTRADA                *
+      * 2 - ERRO CICS                                                 *
+      * 3 - ERRO DB2                                                  *
+      *===============================================================*
+       01  INET1803-AREA.
+
+           03  INET1803-ENTRADA.
+               05  INET1803-APOL                       PIC  9(006).
+               05  INET1803-CPF-CNPJ                   PIC  9(016).
+               05  FILLER                              PIC  X(078).
+
+           03  INET1803-DADOS-ERRO.
+               05  INET1803-CD-RETORNO                 PIC  9(002).
+               05  INET1803-SQLCODE                    PIC  9(004).
+               05  INET1803-MS-RETORNO                 PIC  X(060).
+               05  FILLER                              PIC  X(034).
+
+           03  DADOS-APOLICE OCCURS 025 TIMES.
+              05  INET1803-EXIST-CAPA-FROTA    PIC X(001).
+      *            S - APOLICE  E CAPA FROTA
+      *            N - APOLICE NAO E CAPA FROTA
+              05 INET1803-CD-CNPJ-CPF          PIC 9(016).
+              05 INET1803-CD-SUC               PIC 9(004).
+              05 INET1803-CD-RAMO              PIC 9(004).
+              05 INET1803-CD-CIA               PIC 9(004).
+              05 INET1803-NM-APOL              PIC 9(006).
+              05 INET1803-NM-ITEM              PIC 9(004).
+           03  FILLER                 PIC X(325).
